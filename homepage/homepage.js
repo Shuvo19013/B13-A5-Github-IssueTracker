@@ -49,3 +49,48 @@ const loadAllIssues = async () => {
 };
 
 loadAllIssues();
+
+const buttonAll = document.getElementById("btn-all");
+const buttonOpen = document.getElementById("btn-open");
+const buttonClosed = document.getElementById("btn-closed");
+
+const btnList = [buttonAll, buttonOpen, buttonClosed];
+
+// active button state
+btnList.forEach((element) => {
+  element.addEventListener("click", () => {
+    btnList.forEach((b) =>
+      b.classList.remove("bg-[#6322FF]", "text-white")
+    );
+
+    element.classList.add("bg-[#6322FF]", "text-white");
+  });
+});
+
+// filter open issues
+document.getElementById("btn-open").addEventListener("click", () => {
+  toggleSpinner(true);
+
+  const openList = issueStore.filter(
+    (item) => item.status === "open"
+  );
+
+  renderCards(openList);
+});
+
+// filter closed issues
+document.getElementById("btn-closed").addEventListener("click", () => {
+  toggleSpinner(true);
+
+  const closedList = issueStore.filter(
+    (item) => item.status === "closed"
+  );
+
+  renderCards(closedList);
+});
+
+// show all issues
+document.getElementById("btn-all").addEventListener("click", () => {
+  toggleSpinner(true);
+  renderCards(issueStore);
+});
