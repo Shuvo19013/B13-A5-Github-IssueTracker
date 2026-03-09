@@ -1,4 +1,3 @@
-
 document.getElementById("submit").addEventListener("click", function () {
   // Get the username and password values
   const username = document.getElementById("username");
