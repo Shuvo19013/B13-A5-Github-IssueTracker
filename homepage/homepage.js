@@ -74,7 +74,7 @@ const renderCards = (items) => {
   </div>
 
             <div class="pt-4 border-t border-gray-200 flex flex-col gap-1">
-                <p class="text-[11px] text-slate-400 font-medium italic">#${item.id} by ${item.author}</p>
+                <p class="text-[11px] text-slate-400 font-medium">#${item.id} by ${item.author}</p>
                 <p class="text-[11px] text-slate-400">${formattedDate}</p>
             </div>
         </div>
@@ -154,9 +154,14 @@ const renderDetails = (info) => {
  <div class="p-6">
       <h2 class="text-2xl font-bold text-slate-800">${info.title}</h2>
       <div class="flex gap-2 mt-2 items-center">
-        <span class="px-3 py-1 font-bold rounded-full text-white bg-green-500">${info.status}</span>
-        <p class="text-sm text-slate-500"> ${info.status} by ${info.assignee} : ${formattedDate}</p>
-      </div>
+  <span class="px-3 py-1 font-bold rounded-full text-white ${info.status === "open" ? "bg-green-500" : "bg-purple-500"}">
+    ${info.status === "open" ? "Opened" : "Closed"}
+  </span>
+
+  <p class="text-sm text-slate-500">
+    • ${info.status === "open" ? "opened" : "closed"} by ${info.author} • ${formattedDate}
+  </p>
+</div>
       
           <div class="flex flex-wrap gap-2  mt-4">
           ${info.labels
@@ -188,7 +193,7 @@ const renderDetails = (info) => {
     <div class="bg-slate-50 p-6 flex justify-between items-center">
       <div>
         <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Assignee:</p>
-        <p class="font-bold text-slate-800">${info.assignee}</p>
+        <p class="font-bold text-slate-800">${info.author}</p>
       </div>
       <div class="text-right">
         <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Priority:</p>
