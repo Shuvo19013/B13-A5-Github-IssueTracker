@@ -94,3 +94,52 @@ document.getElementById("btn-all").addEventListener("click", () => {
   toggleSpinner(true);
   renderCards(issueStore);
 });
+
+// show details in modal
+const showIssueDetails = async (issueId) => {
+
+  const api = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${issueId}`;
+
+  const response = await fetch(api);
+
+  const info = await response.json();
+
+  renderDetails(info.data);
+
+  document.getElementById("word_modal").showModal();
+};
+
+// render modal details
+const renderDetails = (info) => {
+
+  const detailBox = document.getElementById("detils-continer");
+
+  detailBox.innerHTML = `...`; // modal html
+};
+
+// search issue
+const findIssue = async (keyword) => {
+
+  toggleSpinner(true);
+
+  const response = await fetch(
+    `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${keyword}`
+  );
+
+  const result = await response.json();
+
+  renderCards(result.data);
+};
+
+// search input
+document.getElementById("input-search").addEventListener("keyup", (event) => {
+
+  const text = event.target.value;
+
+  if (text === "") {
+    renderCards(issueStore);
+  } else {
+    findIssue(text);
+  }
+
+});
